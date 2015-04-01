@@ -3,6 +3,14 @@
   "version": "0.1.0",
   "description": "Convert JSON-based 3D model representations to three.js geometries and vice versa",
   "main": "build/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha --compilers coffee:coffee-script/register",
+    "build": "coffee -c -o build source",
+    "prepublish": "npm run build"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Lowfab/three-convert.git"
@@ -21,5 +29,14 @@
   "bugs": {
     "url": "https://github.com/Lowfab/three-convert/issues"
   },
-  "homepage": "https://github.com/Lowfab/three-convert"
+  "homepage": "https://github.com/Lowfab/three-convert",
+  "devDependencies": {
+    "chai": "^2.2.0",
+    "coffee-script": "^1.9.1",
+    "js-yaml": "^3.2.7",
+    "mocha": "^2.2.1"
+  },
+  "dependencies": {
+    "three": "0.69.0"
+  }
 }
