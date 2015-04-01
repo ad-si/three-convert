@@ -1,6 +1,6 @@
 {
   "name": "three-convert",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Convert JSON-based 3D model representations to three.js geometries and vice versa",
   "main": "build/index.js",
   "directories": {
