@@ -1,0 +1,25 @@
+{
+  "name": "three-convert",
+  "version": "0.1.0",
+  "description": "Convert JSON-based 3D model representations to three.js geometries and vice versa",
+  "main": "build/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Lowfab/three-convert.git"
+  },
+  "keywords": [
+    "three",
+    "mesh",
+    "3D-model"
+  ],
+  "author": "Adrian Sieber",
+  "contributors": [
+    "Arthur Silber",
+    "Stefan Neubert"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Lowfab/three-convert/issues"
+  },
+  "homepage": "https://github.com/Lowfab/three-convert"
+}
