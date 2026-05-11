@@ -3,12 +3,13 @@
   "version": "0.2.0",
   "description": "Convert JSON-based 3D model representations to three.js geometries and vice versa",
   "main": "build/index.js",
+  "types": "build/index.d.ts",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "mocha --compilers coffee:coffee-script/register",
-    "build": "coffee -c -o build source",
+    "test": "TS_NODE_PROJECT=tsconfig.test.json TS_NODE_FILES=true mocha --require ts-node/register 'test/**/*.ts'",
+    "build": "tsc",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -31,10 +32,15 @@
   },
   "homepage": "https://github.com/Lowfab/three-convert",
   "devDependencies": {
-    "chai": "^2.2.0",
-    "coffee-script": "^1.9.1",
-    "js-yaml": "^3.2.7",
-    "mocha": "^2.2.1"
+    "@types/chai": "^4.3.0",
+    "@types/js-yaml": "^4.0.0",
+    "@types/mocha": "^10.0.0",
+    "@types/node": "^20.0.0",
+    "chai": "^4.3.0",
+    "js-yaml": "^4.1.0",
+    "mocha": "^10.2.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.3.0"
   },
   "dependencies": {
     "three": "0.69.0"
