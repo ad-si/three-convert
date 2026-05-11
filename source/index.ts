@@ -1,4 +1,4 @@
-import * as three from 'three'
+import three from 'three'
 
 export interface FaceVertexMesh {
   vertexCoordinates: number[]
@@ -89,10 +89,4 @@ export function convertGeometryTofaceVertexMesh(
   }
 
   return mesh
-}
-
-export default {
-  convertFaceVertexMeshToGeometry,
-  convertFaceVertexMeshToBufferGeometry,
-  convertGeometryTofaceVertexMesh,
 }

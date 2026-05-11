@@ -2,15 +2,25 @@
   "name": "three-convert",
   "version": "0.2.0",
   "description": "Convert JSON-based 3D model representations to three.js geometries and vice versa",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js"
+    }
+  },
+  "main": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "files": [
+    "build"
+  ],
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "TS_NODE_PROJECT=tsconfig.test.json TS_NODE_FILES=true mocha --require ts-node/register 'test/**/*.ts'",
+    "test": "tsx --test test/**/*.ts",
     "build": "tsc",
-    "prepublish": "npm run build"
+    "prepublishOnly": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -32,15 +42,11 @@
   },
   "homepage": "https://github.com/Lowfab/three-convert",
   "devDependencies": {
-    "@types/chai": "^4.3.0",
     "@types/js-yaml": "^4.0.0",
-    "@types/mocha": "^10.0.0",
-    "@types/node": "^20.0.0",
-    "chai": "^4.3.0",
+    "@types/node": "^22.0.0",
     "js-yaml": "^4.1.0",
-    "mocha": "^10.2.0",
-    "ts-node": "^10.9.0",
-    "typescript": "^5.3.0"
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
   },
   "dependencies": {
     "three": "0.69.0"

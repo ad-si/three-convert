@@ -1,42 +1,50 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
+import { dirname, join } from 'node:path'
+import { describe, it } from 'node:test'
+import { deepStrictEqual, ok } from 'node:assert/strict'
 
 import * as yaml from 'js-yaml'
-import * as three from 'three'
-import { expect } from 'chai'
+import three from 'three'
 
-import threeConverter, { FaceVertexMesh } from '../source/index'
+import {
+  convertFaceVertexMeshToBufferGeometry,
+  convertFaceVertexMeshToGeometry,
+  convertGeometryTofaceVertexMesh,
+  type FaceVertexMesh,
+} from '../source/index.js'
+
+const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const faceVertexTetrahedron = yaml.load(
-  fs.readFileSync(
-    path.join(__dirname, 'models/faceVertexTetrahedron.yaml'),
+  readFileSync(
+    join(__dirname, 'models/faceVertexTetrahedron.yaml'),
     'utf8',
   ),
 ) as FaceVertexMesh
 
 describe('Three Converter', () => {
   it('converts a face-vertex mesh to a three.js standard-geometry', () => {
-    const threeTetrahedron = threeConverter
-      .convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
+    const threeTetrahedron =
+      convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
 
-    expect(threeTetrahedron).to.be.an.instanceof(three.Geometry)
+    ok(threeTetrahedron instanceof three.Geometry)
   })
 
   it('converts a face-vertex mesh to a three.js buffer-geometry', () => {
-    const threeTetrahedron = threeConverter
-      .convertFaceVertexMeshToBufferGeometry(faceVertexTetrahedron)
+    const threeTetrahedron =
+      convertFaceVertexMeshToBufferGeometry(faceVertexTetrahedron)
 
-    expect(threeTetrahedron).to.be.an.instanceof(three.BufferGeometry)
+    ok(threeTetrahedron instanceof three.BufferGeometry)
   })
 
   it('converts a three-geometry to a face-vertex mesh', () => {
-    const threeTetrahedron = threeConverter
-      .convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
+    const threeTetrahedron =
+      convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
 
-    const reconvertedFaceVertexTetrahedron = threeConverter
-      .convertGeometryTofaceVertexMesh(threeTetrahedron)
+    const reconvertedFaceVertexTetrahedron =
+      convertGeometryTofaceVertexMesh(threeTetrahedron)
 
-    expect(reconvertedFaceVertexTetrahedron)
-      .to.be.deep.equal(faceVertexTetrahedron)
+    deepStrictEqual(reconvertedFaceVertexTetrahedron, faceVertexTetrahedron)
   })
 })
