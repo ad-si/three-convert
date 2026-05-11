@@ -5,12 +5,11 @@ import { describe, it } from 'node:test'
 import { deepStrictEqual, ok } from 'node:assert/strict'
 
 import * as yaml from 'js-yaml'
-import three from 'three'
+import { BufferGeometry } from 'three'
 
 import {
+  convertBufferGeometryToFaceVertexMesh,
   convertFaceVertexMeshToBufferGeometry,
-  convertFaceVertexMeshToGeometry,
-  convertGeometryTofaceVertexMesh,
   type FaceVertexMesh,
 } from '../source/index.js'
 
@@ -24,27 +23,30 @@ const faceVertexTetrahedron = yaml.load(
 ) as FaceVertexMesh
 
 describe('Three Converter', () => {
-  it('converts a face-vertex mesh to a three.js standard-geometry', () => {
-    const threeTetrahedron =
-      convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
-
-    ok(threeTetrahedron instanceof three.Geometry)
-  })
-
   it('converts a face-vertex mesh to a three.js buffer-geometry', () => {
     const threeTetrahedron =
       convertFaceVertexMeshToBufferGeometry(faceVertexTetrahedron)
 
-    ok(threeTetrahedron instanceof three.BufferGeometry)
+    ok(threeTetrahedron instanceof BufferGeometry)
   })
 
-  it('converts a three-geometry to a face-vertex mesh', () => {
+  it('converts a buffer-geometry to a face-vertex mesh', () => {
     const threeTetrahedron =
-      convertFaceVertexMeshToGeometry(faceVertexTetrahedron)
+      convertFaceVertexMeshToBufferGeometry(faceVertexTetrahedron)
 
-    const reconvertedFaceVertexTetrahedron =
-      convertGeometryTofaceVertexMesh(threeTetrahedron)
+    const reconverted =
+      convertBufferGeometryToFaceVertexMesh(threeTetrahedron)
 
-    deepStrictEqual(reconvertedFaceVertexTetrahedron, faceVertexTetrahedron)
+    const expected: FaceVertexMesh = {
+      vertexCoordinates: Array.from(
+        new Float32Array(faceVertexTetrahedron.vertexCoordinates),
+      ),
+      faceVertexIndices: faceVertexTetrahedron.faceVertexIndices,
+      faceNormalCoordinates: Array.from(
+        new Float32Array(faceVertexTetrahedron.faceNormalCoordinates),
+      ),
+    }
+
+    deepStrictEqual(reconverted, expected)
   })
 })

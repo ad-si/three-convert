@@ -42,13 +42,14 @@
   },
   "homepage": "https://github.com/Lowfab/three-convert",
   "devDependencies": {
-    "@types/js-yaml": "^4.0.0",
-    "@types/node": "^22.0.0",
-    "js-yaml": "^4.1.0",
-    "tsx": "^4.19.0",
-    "typescript": "^5.6.0"
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^25.7.0",
+    "@types/three": "^0.184.1",
+    "js-yaml": "^4.1.1",
+    "tsx": "^4.21.0",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "three": "0.69.0"
+    "three": "0.184.0"
   }
 }
